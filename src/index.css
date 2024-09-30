@@ -1,5 +1,64 @@
-* {
-    margin: 0;
-    padding: 0;
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+    background-color: #151515;
+    -webkit-box-sizing: border-box;
     box-sizing: border-box;
+    font-family: "Figtree", sans-serif;
+}
+
+.menu li > *:not(ul, .menu-title, detail):active{
+    background-color: transparent;
+    color:#71ECB6;
+}
+
+.swiper-button-prev, .swiper-button-next{
+    color: #71ECB6
+}
+
+.swiper-pagination-bullet{
+    background: #FFFFFF
+}
+
+.swiper-pagination-bullet-active{
+    background-color: #71ECB6
+}
+
+ .Testimonials__main{
+    padding: 0;
+    max-width: 1280px;
+}
+
+.Testimonials__main-container{
+    margin: 0 auto;
+    max-width: 1280px;
+}
+
+.TestimonialsTop{
+    border-bottom: .2px solid #71ECB6;
+}
+
+ .TestimonialsBottom__box>*{
+    gap: 5px;
+} 
+
+::-webkit-scrollbar {
+    width: 8px !important;
+}
+::-webkit-scrollbar-button {
+    display: block !important;
+    height: 0px !important;
+    border-radius: 0px !important;
+    background-color: #313741 !important;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #00d2ff !important;
+    border-radius: 3px !important;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #313741 !important;
 }

@@ -1,10 +1,7 @@
-const App = () => {
+import MainLayout from "./components/Layouts/MainLayout"
 
-  return (
-    <>
-      <h1>Bee Hive</h1>
-    </>
-  )
+const App = () => {
+  return <MainLayout />
 }
 
 export default App
