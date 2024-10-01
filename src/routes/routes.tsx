@@ -3,6 +3,8 @@ import App from "../App";
 import { routesGenerator } from "../utils/routesGenerator";
 import { mainMenu } from "./mainMenu";
 import DashBoard from "../pages/DashBoardPages/DashBoard";
+import { userPaths } from "./user.routes";
+import { adminPaths } from "./admin.routes";
 
 const router = createBrowserRouter([
     {
@@ -11,17 +13,16 @@ const router = createBrowserRouter([
         children: routesGenerator(mainMenu)
     },
     {
-        path: '/login',
-        element: <div>Login</div>
+        path: '/admin',
+        element: <DashBoard />,
+        children: routesGenerator(adminPaths)
     },
     {
-        path: '/register',
-        element: <div>Register</div>
+        path: '/user',
+        element: <DashBoard />,
+        children: routesGenerator(userPaths)
     },
-    {
-        path: '/dashboard',
-        element: <DashBoard />
-    },
+    
 ])
 
 export default router;

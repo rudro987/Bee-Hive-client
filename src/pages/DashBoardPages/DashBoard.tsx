@@ -4,7 +4,7 @@ import DashboardSidebar from "./DashboardSidebar";
 
 const DashBoard = () => {
   const user = {
-    role: 'admin'
+    role: 'user'
   }
   return (
     // based on user role admin or user layout

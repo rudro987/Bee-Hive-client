@@ -8,6 +8,15 @@ export const menuItemsGenerator = (items: TPath[]) => {
             path: item.path,
           });
         }
+
+        if (item.children) {
+          item.children.forEach((child) => {
+            acc.push({
+              name: child.name!,
+              path: child.path!,
+            });
+          });
+        } 
         return acc;
       }, []);
       return menuItems;
