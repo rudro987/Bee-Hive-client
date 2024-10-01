@@ -20,6 +20,7 @@ const Input = ({ type, label, placeholder, register, name }: TInputProps) => {
       <input
         type={type}
         placeholder={placeholder}
+        autoComplete="true"
         {...register(name, { required: true})}
         className="w-full h-14 leading-6 px-4 border border-primaryFont rounded-lg focus-visible:outline-none"
       />

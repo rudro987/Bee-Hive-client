@@ -8,14 +8,6 @@ export const routesGenerator = (items: TPath[]) => {
                 element: item.element,
             })
         }
-        if (item.children) {
-            item.children.forEach((child) => {
-              acc.push({
-                path: child.path!,
-                element: child.element,
-              });
-            });
-          }
         return acc;
       }, []);
 

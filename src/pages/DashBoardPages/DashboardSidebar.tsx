@@ -6,7 +6,7 @@ import { menuItemsGenerator } from "../../utils/menuItemsGenerator";
 const DashboardSidebar = () => {
   let sidebarItems;
   const user = {
-    role: "admin",
+    role: "user",
   };
 
   if (user.role === "admin") {
@@ -30,13 +30,6 @@ const DashboardSidebar = () => {
             </Link>
           </li>
           ))}
-          <li>
-        <a>Parent</a>
-        <ul>
-          <li><a>Submenu 1</a></li>
-          <li><a>Submenu 2</a></li>
-        </ul>
-      </li>
         </ul>
       </div>
 

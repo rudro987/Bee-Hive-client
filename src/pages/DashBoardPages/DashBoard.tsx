@@ -1,11 +1,7 @@
-import AdminDashboardLayout from "../../components/Layouts/AdminDashboardLayout";
-import UserDashboardLayout from "../../components/Layouts/UserDashboardLayout";
+import DashboardLayout from "../../components/Layouts/DashBoardLayout";
 import DashboardSidebar from "./DashboardSidebar";
 
 const DashBoard = () => {
-  const user = {
-    role: 'user'
-  }
   return (
     // based on user role admin or user layout
     
@@ -14,7 +10,7 @@ const DashBoard = () => {
       <DashboardSidebar />
       </div>
       <div className="flex-grow">
-      {user.role === 'admin' ? <AdminDashboardLayout /> : <UserDashboardLayout />}
+      <DashboardLayout /> 
       </div>
     </div>
   )

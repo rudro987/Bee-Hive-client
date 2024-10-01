@@ -1,8 +1,7 @@
 import AdminDashboard from "../pages/DashBoardPages/Admin/AdminDashboard";
 import BookingManagement from "../pages/DashBoardPages/Admin/BookingManagement";
-import CreateRoom from "../pages/DashBoardPages/Admin/CreateRoom";
+import RoomManagement from "../pages/DashBoardPages/Admin/RoomManagement";
 import SlotManagement from "../pages/DashBoardPages/Admin/SlotManagement";
-import ViewRooms from "../pages/DashBoardPages/Admin/ViewRooms";
 
 export const adminPaths = [
     {
@@ -12,18 +11,8 @@ export const adminPaths = [
     },
     {
         name: 'Room Management',
-        children: [
-            {
-                name: 'Create Room',
-                path: 'create-room',
-                element: <CreateRoom />
-            },
-            {
-                name: 'View Rooms',
-                path: 'view-rooms',
-                element: <ViewRooms />
-            }
-        ]
+        path: 'room-management',
+        element: <RoomManagement />
     },
     {
         name: 'Slot Management',
