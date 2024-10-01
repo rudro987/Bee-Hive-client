@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import { routesGenerator } from "../utils/routesGenerator";
 import { mainMenu } from "./mainMenu";
+import DashBoard from "../pages/DashBoardPages/DashBoard";
 
 const router = createBrowserRouter([
     {
@@ -19,7 +20,7 @@ const router = createBrowserRouter([
     },
     {
         path: '/dashboard',
-        element: <div>Dashboard</div>
+        element: <DashBoard />
     },
 ])
 
