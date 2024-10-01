@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-export type TRoute = {
+export type TMainMenuTypes = {
     path: string;
     element: ReactNode;
 }

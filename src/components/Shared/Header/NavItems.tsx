@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import { menuItemsGenerator } from "../../../utils/menuItemsGenerator";
-import { allPaths } from "../../../routes/allPaths";
 import { FaCartArrowDown } from "react-icons/fa";
+import { mainMenu } from "../../../routes/mainMenu";
 
 const NavItems = () => {
-  const menuItems = menuItemsGenerator(allPaths);
+  const menuItems = menuItemsGenerator(mainMenu);
 
   return (
     <div className="relative">
@@ -53,8 +53,8 @@ const NavItems = () => {
                 </ul>
               </div>
               <Link to="/" className="text-2xl font-mono">
-                <span className="text-secondaryColor font-bold">Ctrl</span>+Alt+
-                <span className="text-primaryFont font-bold">Del</span>
+                <span className="text-secondaryColor font-bold">Bee</span>-
+                <span className="text-primaryFont font-bold">Hive</span>
               </Link>
             </div>
             <div className="navbar-center hidden lg:flex">

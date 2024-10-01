@@ -1,1 +1,1 @@
-export * from "./menuItem.types"
+export * from "./mainMenu.types"
