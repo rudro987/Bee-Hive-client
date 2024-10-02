@@ -3,15 +3,15 @@ import { adminPaths } from "../../routes/admin.routes";
 import { userPaths } from "../../routes/user.routes";
 import { menuItemsGenerator } from "../../utils/menuItemsGenerator";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { logOut, useCurrentUser } from "../../redux/features/auth/authSlice";
+import { logOut, selectCurrentUser } from "../../redux/features/auth/authSlice";
 
 const DashboardSidebar = () => {
+  
   const dispatch = useAppDispatch();
 
   let sidebarItems;
-  const user = useAppSelector(useCurrentUser);
 
-  console.log(user)
+  const user = useAppSelector(selectCurrentUser);
 
   if (user?.role === "admin") {
     sidebarItems = menuItemsGenerator(adminPaths);
