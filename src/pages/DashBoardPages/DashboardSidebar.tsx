@@ -2,17 +2,25 @@ import { Link } from "react-router-dom";
 import { adminPaths } from "../../routes/admin.routes";
 import { userPaths } from "../../routes/user.routes";
 import { menuItemsGenerator } from "../../utils/menuItemsGenerator";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { logOut, useCurrentUser } from "../../redux/features/auth/authSlice";
 
 const DashboardSidebar = () => {
-  let sidebarItems;
-  const user = {
-    role: "user",
-  };
+  const dispatch = useAppDispatch();
 
-  if (user.role === "admin") {
+  let sidebarItems;
+  const user = useAppSelector(useCurrentUser);
+
+  console.log(user)
+
+  if (user?.role === "admin") {
     sidebarItems = menuItemsGenerator(adminPaths);
   } else {
     sidebarItems = menuItemsGenerator(userPaths);
+  }
+
+  const handleLogout = () => {
+    dispatch(logOut())
   }
 
   return (
@@ -52,7 +60,7 @@ const DashboardSidebar = () => {
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-1 -mr-40 w-52 p-2 shadow"
           >
             <li>
-              <a>Logout</a>
+              <button onClick={handleLogout}>Logout</button>
             </li>
           </ul>
         </div>

@@ -5,6 +5,7 @@ import { useLoginMutation } from "../../redux/features/auth/authApi";
 import { useAppDispatch } from "../../redux/hooks";
 import { setUser } from "../../redux/features/auth/authSlice";
 import { verifyToken } from "../../utils/verifyToken";
+import { useNavigate } from "react-router-dom";
 
 type TLoginInputs = {
   email: string;
@@ -12,6 +13,8 @@ type TLoginInputs = {
 };
 
 const Login = () => {
+
+  const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
 
@@ -29,6 +32,7 @@ const Login = () => {
     const user = verifyToken(res.token);
     
     dispatch(setUser({ user: user, token: res.token}));
+    navigate(`/${user.role}/dashboard`)
   };
 
   return (
