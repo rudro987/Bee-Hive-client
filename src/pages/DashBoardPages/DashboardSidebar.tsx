@@ -3,7 +3,8 @@ import { adminPaths } from "../../routes/admin.routes";
 import { userPaths } from "../../routes/user.routes";
 import { menuItemsGenerator } from "../../utils/menuItemsGenerator";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { logOut, selectCurrentUser } from "../../redux/features/auth/authSlice";
+import { logOut, TUser, useCurrentToken } from "../../redux/features/auth/authSlice";
+import { verifyToken } from "../../utils/verifyToken";
 
 const DashboardSidebar = () => {
   
@@ -11,12 +12,20 @@ const DashboardSidebar = () => {
 
   let sidebarItems;
 
-  const user = useAppSelector(selectCurrentUser);
+  const token = useAppSelector(useCurrentToken);
 
-  if (user?.role === "admin") {
+  let user;
+
+  if(token){
+    user = verifyToken(token);
+  }
+
+  if ((user as TUser)?.role === "admin") {
     sidebarItems = menuItemsGenerator(adminPaths);
-  } else {
+  } else if((user as TUser)?.role === "student") {
     sidebarItems = menuItemsGenerator(userPaths);
+  }else{
+    dispatch(logOut());
   }
 
   const handleLogout = () => {
@@ -31,7 +40,7 @@ const DashboardSidebar = () => {
           <span className="text-primaryFont font-bold">Hive</span>
         </Link>
         <ul className="menu p-0 pt-10">
-          {sidebarItems.map((item, index) => (
+          {sidebarItems?.map((item, index) => (
             <li key={index}>
             <Link to={`${item.path}`} className="p-0">
               <p className="text-lg leading-10">{item.name}</p>

@@ -8,7 +8,7 @@ const DashBoard = () => {
 
     <ProtectedRoute role={undefined}>
       <div className="flex">
-        <div className="w-2/12">
+        <div className="w-2/12 sticky">
           <DashboardSidebar />
         </div>
         <div className="flex-grow">

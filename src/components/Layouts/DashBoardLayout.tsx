@@ -1,13 +1,15 @@
 import { Outlet } from "react-router-dom";
+import DashboardHeader from "../../pages/DashBoardPages/DashboardHeader";
+import DashboardFooter from "../../pages/DashBoardPages/DashboardFooter";
 
 const DashboardLayout = () => {
   return (
-    <div>
-      <h1>Header</h1>
+    <div className="h-[300vh]">
+      <DashboardHeader />
       <Outlet />
-      <h1>Footer</h1>
+      <DashboardFooter />
     </div>
-  )
+  );
 };
 
 export default DashboardLayout;
