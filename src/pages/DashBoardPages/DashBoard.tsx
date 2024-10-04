@@ -6,7 +6,7 @@ const DashBoard = () => {
   return (
     // based on user role admin or user layout
 
-    <ProtectedRoute>
+    <ProtectedRoute role={undefined}>
       <div className="flex">
         <div className="w-2/12">
           <DashboardSidebar />
