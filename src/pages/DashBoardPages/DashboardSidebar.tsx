@@ -33,7 +33,7 @@ const DashboardSidebar = () => {
   }
 
   return (
-    <div className="min-h-screen bg-secondaryBg flex flex-col justify-between pt-5 pb-20 px-5">
+    <div className="w-2/12 min-h-screen fixed bg-secondaryBg flex flex-col justify-between pt-5 pb-20 px-5">
       <div>
         <Link to="/" className="text-2xl font-mono">
           <span className="text-secondaryColor font-bold">Bee</span>-
@@ -41,8 +41,8 @@ const DashboardSidebar = () => {
         </Link>
         <ul className="menu p-0 pt-10">
           {sidebarItems?.map((item, index) => (
-            <li key={index}>
-            <Link to={`${item.path}`} className="p-0">
+            <li key={index} className="text-base hover:text-primaryFont">
+            <Link to={`${item.path}`} className="hover:bg-transparent focus:bg-transparent focus:text-primaryFont">
               <p className="text-lg leading-10">{item.name}</p>
             </Link>
           </li>
