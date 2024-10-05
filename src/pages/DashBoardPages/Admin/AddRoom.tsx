@@ -7,6 +7,7 @@ import FilesInput from "../../../components/ui/FilesInput";
 import useAxiosPublic from "../../../utils/useAxiosPublic";
 import { useState } from "react";
 import { useCreateRoomMutation } from "../../../redux/features/roomManagement/roomManagementApi";
+import Loader from "../../../components/ui/Loader";
 
 const amenitiesOptions = ["Projector", "WhiteBoard", "WiFi", "AC", "Parking"];
 
@@ -16,7 +17,7 @@ const AddRoom = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isLoading },
     reset,
     setValue,
   } = useForm();
@@ -106,6 +107,10 @@ const AddRoom = () => {
     }
 
   };
+
+  if (isLoading) {
+    return <Loader size="160px" />;
+  }
 
   return (
     <div className="pt-20">

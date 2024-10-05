@@ -9,9 +9,10 @@ import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { toast } from "sonner";
 import UpdateRoom from "./UpdateRoom";
+import Loader from "../../../components/ui/Loader";
 
 const RoomManagement = () => {
-  const { data } = useGetRoomsQuery(undefined);
+  const { data, isLoading } = useGetRoomsQuery(undefined);
   const roomData = data?.data;
 
   const [deleteRoom] = useDeleteRoomMutation();
@@ -44,6 +45,10 @@ const RoomManagement = () => {
       }
     });
   };
+
+  if (isLoading) {
+    return <Loader size="160px" />;
+  }
 
   return (
     <div className="pt-20">

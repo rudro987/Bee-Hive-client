@@ -7,11 +7,12 @@ import useAxiosPublic from "../../../utils/useAxiosPublic";
 import Input from "../../../components/ui/Input";
 import FilesInput from "../../../components/ui/FilesInput";
 import { TRoomType } from "../../../types";
+import Loader from "../../../components/ui/Loader";
 
 const amenitiesOptions = ["Projector", "WhiteBoard", "WiFi", "AC", "Parking"];
 
 const UpdateRoom = ({ room }: { room: TRoomType }) => {
-  const { register, handleSubmit, setValue } = useForm();
+  const { register, handleSubmit, formState: { isLoading },  setValue } = useForm();
 
   const axiosPublic = useAxiosPublic();
 
@@ -99,6 +100,10 @@ const UpdateRoom = ({ room }: { room: TRoomType }) => {
       toast.error(err.data.message, { duration: 5000 });
     }
   };
+
+  if (isLoading) {
+    return <Loader size="160px" />;
+  }
 
   return (
     <div className="hero">
