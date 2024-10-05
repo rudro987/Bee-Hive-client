@@ -18,10 +18,10 @@ const roomManagementApi = baseApi.injectEndpoints({
             invalidatesTags: ['rooms'],
         }),
         updateRoom: builder.mutation({
-            query: ({ id, data }) => ({
+            query: ({ productUpdatedData, id }) => ({
                 url: `/rooms/${id}`,
                 method: 'PATCH',
-                body: data,
+                body: productUpdatedData,
             }),
             invalidatesTags: ['rooms'],
         }),

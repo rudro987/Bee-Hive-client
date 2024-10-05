@@ -17,6 +17,11 @@ export const mainMenu = [
         element: <Rooms />
     },
     {
+        name: 'Single Room',
+        path: '/rooms/:roomId',
+        element: <h1>Single room</h1>
+    },
+    {
         name: 'About Us',
         path: '/about-us',
         element: <AboutUs />

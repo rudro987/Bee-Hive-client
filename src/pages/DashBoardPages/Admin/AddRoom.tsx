@@ -94,6 +94,7 @@ const AddRoom = () => {
           id: toastId,
           duration: 2000,
         });
+        setSelectedAmenities([]);
         reset();
       }
     } catch (err: any) {

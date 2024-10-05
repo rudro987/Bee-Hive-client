@@ -21,7 +21,7 @@ const baseQueryWithRefreshToken: BaseQueryFn = async (args, api, extraOptions) =
     if(result?.error?.status === 401){
         //* Send refresh token
 
-        const res = await fetch('http://localhost:5000/api/auth/refresh-token', {
+        const res = await fetch(`${import.meta.env.VITE_API_URL2}/api/auth/refresh-token`, {
             method: 'POST',
             credentials: 'include'
         });
