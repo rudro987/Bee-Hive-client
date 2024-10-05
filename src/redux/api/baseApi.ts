@@ -47,5 +47,6 @@ const baseQueryWithRefreshToken: BaseQueryFn = async (args, api, extraOptions) =
 export const baseApi = createApi({
     reducerPath: 'baseApi',
     baseQuery: baseQueryWithRefreshToken,
+    tagTypes: ['rooms'],
     endpoints: () => ({})
 })

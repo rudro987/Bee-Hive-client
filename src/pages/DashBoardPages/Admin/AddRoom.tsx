@@ -6,10 +6,12 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import FilesInput from "../../../components/ui/FilesInput";
 import useAxiosPublic from "../../../utils/useAxiosPublic";
 import { useState } from "react";
+import { useCreateRoomMutation } from "../../../redux/features/roomManagement/roomManagementApi";
 
-const amenitiesOptions = ["WiFi", "AC", "TV", "Parking", "Pool", "Gym"];
+const amenitiesOptions = ["Projector", "WhiteBoard", "WiFi", "AC", "Parking"];
 
 const AddRoom = () => {
+  const [ createRoom ] = useCreateRoomMutation();
   const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
   const {
     register,
@@ -46,6 +48,7 @@ const AddRoom = () => {
   }?key=${image_api_key}`;
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    const toastId = toast.loading("Adding a new Product");
     const galleryData = Array.from(data.gallery);
 
     const imageFile = { image: data.image[0] };
@@ -70,18 +73,37 @@ const AddRoom = () => {
       })
     );
 
-    const roomData = {
-      name: data.name,
-      roomNo: Number(data.roomNo),
-      image: roomImage,
-      gallery: galleryURLs,
-      floorNo: Number(data.floorNo),
-      capacity: Number(data.capacity),
-      pricePerSlot: Number(data.pricePerSlot),
-      amenities: selectedAmenities,
-    };
+    try {
+      const roomData = {
+        name: data.name,
+        roomNo: Number(data.roomNo),
+        image: roomImage,
+        gallery: galleryURLs,
+        floorNo: Number(data.floorNo),
+        capacity: Number(data.capacity),
+        pricePerSlot: Number(data.pricePerSlot),
+        amenities: selectedAmenities,
+      };
+  
+      console.log("this is room data: ", roomData);
+  
+      const result = await createRoom(roomData).unwrap();
+      console.log("this is result: ", result);
+      if(result.success){
+        toast.success("Room added successfully", {
+          id: toastId,
+          duration: 2000,
+        });
+        reset();
+      }
+    } catch (err: any) {
+      console.log("error message: ", err)
+      toast.error(err.data.message, {
+        id: toastId,
+        duration: 5000,
+      });
+    }
 
-    console.log("this is room data: ", roomData);
   };
 
   return (
@@ -99,14 +121,17 @@ const AddRoom = () => {
                 register={register}
                 required={true}
               />
+              {errors.name && <span className="text-red-600">Name is Required</span>}
 
               <FilesInput
                 type="file"
                 label="Image"
                 placeholder="Room Image"
                 name="image"
+                required={true}
                 register={register}
               />
+              {errors.image && <span className="text-red-600">Image is Required</span>}
 
               <FilesInput
                 type="file"
@@ -127,6 +152,7 @@ const AddRoom = () => {
                     register={register}
                     required={true}
                   />
+                  {errors.roomNo && <span className="text-red-600">Room No is Required</span>}
                 </div>
                 <div className="w-1/2">
                   <Input
@@ -137,6 +163,7 @@ const AddRoom = () => {
                     register={register}
                     required={true}
                   />
+                  {errors.floorNo && <span className="text-red-600">Please specify Floor no</span>}
                 </div>
               </div>
               <div className="flex gap-5">
@@ -149,6 +176,7 @@ const AddRoom = () => {
                     register={register}
                     required={true}
                   />
+                  {errors.capacity && <span className="text-red-600">Please specify capacity of the room</span>}
                 </div>
                 <div className="w-1/2">
                   <Input
@@ -159,9 +187,9 @@ const AddRoom = () => {
                     register={register}
                     required={true}
                   />
+                  {errors.pricePerSlot && <span className="text-red-600">Price per slot is required</span>}
                 </div>
               </div>
-              <div></div>
 
               <div className="flex flex-wrap">
                 <label className="label mr-3">
@@ -186,7 +214,10 @@ const AddRoom = () => {
 
               <select
                 className="select select-bordered border-primaryFont w-full max-w-xs"
-                onChange={handleAmenitiesChange}
+                {...register("amenities", {
+                  validate: () => selectedAmenities.length > 0 || "At least one amenity must be selected",
+                })}
+                onChange={handleAmenitiesChange}                
               >
                 <option value="" disabled>
                   Select amenities
@@ -197,6 +228,9 @@ const AddRoom = () => {
                   </option>
                 ))}
               </select>
+              {errors.amenities && (
+                <span className="text-red-600">{errors.amenities.message as string}</span>
+              )}
 
               <div className="form-control mt-6">
                 <button type="submit" className=" btn bg-primaryFont rounded text-black hover:bg-secondaryColor font-bold">Add Room</button>
