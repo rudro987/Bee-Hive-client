@@ -1,6 +1,6 @@
 import { TInputProps } from "./Input";
 
-const TextArea = ({ label, placeholder, name, register }:TInputProps) => {
+const TextArea = ({ label, placeholder, name, register, value, required=false }:TInputProps) => {
 
   return (
     <div className="form-control h-">
@@ -9,7 +9,8 @@ const TextArea = ({ label, placeholder, name, register }:TInputProps) => {
       </label>
       <textarea
         placeholder={placeholder}
-        {...register(name!, { required: true})}
+        {...register(name!, { required: required})}
+        defaultValue={value}
         className="w-full h-28 leading-6 px-4 border border-primaryFont rounded-lg focus-visible:outline-none pt-3"
         required
       ></textarea>

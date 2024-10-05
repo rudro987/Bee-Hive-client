@@ -6,7 +6,7 @@ const DashboardLayout = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <DashboardHeader />
-      <div className="flex-grow py-6 px-20">
+      <div className="flex-grow px-20">
       <Outlet />
       </div>
       <DashboardFooter />

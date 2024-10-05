@@ -1,3 +1,4 @@
+import AddRoom from "../pages/DashBoardPages/Admin/AddRoom";
 import AdminDashboard from "../pages/DashBoardPages/Admin/AdminDashboard";
 import BookingManagement from "../pages/DashBoardPages/Admin/BookingManagement";
 import RoomManagement from "../pages/DashBoardPages/Admin/RoomManagement";
@@ -23,5 +24,10 @@ export const adminPaths = [
         name: 'Booking Management',
         path: 'booking-management',
         element: <BookingManagement />
+    },
+    {
+        name: 'Create Room',
+        path: 'create-room',
+        element: <AddRoom />
     }
 ]
