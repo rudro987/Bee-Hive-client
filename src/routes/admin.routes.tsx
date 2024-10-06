@@ -1,5 +1,5 @@
 import AdminDashboard from "../pages/DashBoardPages/Admin/AdminDashboard";
-import BookingManagement from "../pages/DashBoardPages/Admin/BookingManagement";
+import BookingManagement from "../pages/DashBoardPages/Admin/BookingManagement/BookingManagement";
 import CreateRoom from "../pages/DashBoardPages/Admin/roomManagement/CreateRoom";
 
 import RoomManagement from "../pages/DashBoardPages/Admin/roomManagement/RoomManagement";

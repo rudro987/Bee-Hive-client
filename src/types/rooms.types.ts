@@ -2,7 +2,7 @@ export type TRoomType = {
     _id?: string,
     name: string,
     roomNo: number,
-    image: string,
+    image?: string,
     gallery?: string[],
     floorNo: number,
     capacity: number,

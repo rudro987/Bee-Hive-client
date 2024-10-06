@@ -1,5 +1,5 @@
 export * from "./mainMenu.types"
-
 export * from "./rooms.types"
-
 export * from "./slots.types"
+export * from "./bookings.types"
+export * from "./user.types"

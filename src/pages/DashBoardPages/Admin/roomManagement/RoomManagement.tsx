@@ -72,7 +72,7 @@ const RoomManagement = () => {
               <th>Floor No.</th>
               <th>Capacity</th>
               <th>Price Per Slot</th>
-              <th className="text-left">Action</th>
+              <th className="text-left">Edit/Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -98,7 +98,7 @@ const RoomManagement = () => {
                 <td>{room.floorNo}</td>
                 <td>{room.capacity}</td>
                 <td>${room.pricePerSlot.toFixed(2)}</td>
-                <td>
+                <td className="flex gap-3">
                   <button
                     onClick={() =>
                       (
@@ -129,8 +129,6 @@ const RoomManagement = () => {
                       <button>close</button>
                     </form>
                   </dialog>
-                </td>
-                <td>
                   <button onClick={() => handleDelete(room._id as string)}>
                     <FaTrashAlt
                       size="24"

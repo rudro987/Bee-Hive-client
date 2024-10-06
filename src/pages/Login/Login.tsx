@@ -7,11 +7,7 @@ import { setUser, TUser } from "../../redux/features/auth/authSlice";
 import { verifyToken } from "../../utils/verifyToken";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-
-type TLoginInputs = {
-  email: string;
-  password: string;
-};
+import { TLoginInputs } from "../../types";
 
 const Login = () => {
   const navigate = useNavigate();

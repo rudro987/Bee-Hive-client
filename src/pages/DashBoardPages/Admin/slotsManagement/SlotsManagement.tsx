@@ -1,22 +1,49 @@
 import { Link } from "react-router-dom";
 import SectionTitle from "../../../Home/SectionTitle";
 import Loader from "../../../../components/ui/Loader";
-import { useGetSlotsQuery } from "../../../../redux/features/slotsManagement/slotsManagementApi";
-import { useGetRoomsQuery } from "../../../../redux/features/roomManagement/roomManagementApi";
-import { FaEdit } from "react-icons/fa";
-import { getRoomsInfo } from "../../../../utils/getRoomsInfo";
-import { TSlotType } from "../../../../types";
+import { useDeleteSlotMutation, useGetSlotsQuery } from "../../../../redux/features/slotsManagement/slotsManagementApi";
+import { FaTrashAlt } from "react-icons/fa";
+import { TSlotManagementType } from "../../../../types";
+import { toast } from "sonner";
+import Swal from "sweetalert2";
 
 const SlotsManagement = () => {
 
   const { data, isLoading } = useGetSlotsQuery(undefined);
-  const { data: rooms } = useGetRoomsQuery(undefined);
 
-  const roomsData = getRoomsInfo(rooms?.data);
-
-  console.log(roomsData)
+  const [deleteSlot] = useDeleteSlotMutation();
 
   const slotsData = data?.data;
+
+  const handleDelete = (id: string) => {
+    Swal.fire({
+      icon: "error",
+      showCloseButton: true,
+      showCancelButton: true,
+      title: "Are you sure?",
+      text: "Deleting a slot is irreversible!",
+      confirmButtonText: `
+    <i class="fa fa-thumbs-up"></i> Delete
+  `,
+      cancelButtonText: `
+    <i class="f">Cancel</i>
+  `,
+      confirmButtonColor: "#D91656",
+      cancelButtonColor: "#227B94",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const res = await deleteSlot(id).unwrap();
+          if (res.success) {
+            toast.success(res.message, { duration: 2000 });
+          }
+        } catch (err) {
+          console.error(err)
+          toast.error("Failed to delete Slot!", { duration: 2000 });
+        }
+      }
+    });
+  };
 
   if (isLoading) {
     return <Loader size="160px" />;
@@ -39,76 +66,32 @@ const SlotsManagement = () => {
               <th>
                 <label>#</label>
               </th>
-              <th className="text-left">Room Name</th>
+              <th>Room Name</th>
               <th>Room No.</th>
-              <th>Floor No.</th>
-              <th>Capacity</th>
-              <th>Price Per Slot</th>
-              <th className="text-left">Action</th>
+              <th>Date</th>
+              <th>Start Time</th>
+              <th>End Time</th>
+              <th>Delete Slot</th>
             </tr>
           </thead>
           <tbody>
-            {slotsData?.map((slot: TSlotType, index: number) => (
+            {slotsData?.map((slot: TSlotManagementType, index: number) => (
               <tr key={index}>
                 <th>
                   <label>{index + 1}</label>
                 </th>
+                <td>{slot.room.name}</td>
+                <td>{slot.room.roomNo}</td>
+                <td>{slot.date}</td>
+                <td>{slot.startTime}</td>
+                <td>{slot.endTime}</td>
                 <td>
-                  <div className="flex items-center gap-3">
-                    <div className="avatar">
-                      <div className="mask mask-squircle h-12 w-12">
-                        <img src='' />
-                        image
-                      </div>
-                    </div>
-                    <div>
-                      <div className="font-bold">name</div>
-                    </div>
-                  </div>
-                </td>
-                <td>adda</td>
-                <td>adad</td>
-                <td>adad</td>
-                <td>$adad</td>
-                <td>
-                  <button
-                    onClick={() =>
-                      (
-                        document.getElementById(
-                          `update-modal${slot._id}`
-                        ) as HTMLDialogElement
-                      )?.showModal()
-                    }
-                  >
-                    <FaEdit
-                      size="24"
-                      className="text-secondaryColor hover:text-primaryFont"
-                    />
-                  </button>
-                  <dialog id={`update-modal${slot._id}`} className="modal">
-                    <div className="modal-box">
-                      <form method="dialog">
-                        <input
-                          type="submit"
-                          value="X"
-                          className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
-                        />
-                      </form>
-                      <h3 className="font-bold text-lg">Update Product</h3>
-                      {/* <UpdateRoom room={room} /> */}
-                    </div>
-                    <form method="dialog" className="modal-backdrop">
-                      <button>close</button>
-                    </form>
-                  </dialog>
-                </td>
-                <td>
-                  {/* <button onClick={() => handleDelete(room._id as string)}>
+                  <button onClick={() => handleDelete(slot._id)}>
                     <FaTrashAlt
                       size="24"
                       className="text-primaryFont hover:text-secondaryColor"
                     />
-                  </button> */}
+                  </button>
                 </td>
               </tr>
             ))}
