@@ -49,7 +49,7 @@ const CreateRoom = () => {
   }?key=${image_api_key}`;
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    const toastId = toast.loading("Adding a new Product");
+    const toastId = toast.loading("Adding a New Room");
     const galleryData = Array.from(data.gallery);
 
     const imageFile = { image: data.image[0] };
@@ -86,10 +86,7 @@ const CreateRoom = () => {
         amenities: selectedAmenities,
       };
 
-      console.log("this is room data: ", roomData);
-
       const result = await createRoom(roomData).unwrap();
-      console.log("this is result: ", result);
       if (result.success) {
         toast.success("Room added successfully", {
           id: toastId,
@@ -102,7 +99,7 @@ const CreateRoom = () => {
       console.log("error message: ", err);
       toast.error(err.data.message, {
         id: toastId,
-        duration: 5000,
+        duration: 2000,
       });
     }
   };
