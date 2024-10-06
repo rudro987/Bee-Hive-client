@@ -1,18 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { toast } from "sonner";
-import Input from "../../../components/ui/Input";
-import SectionTitle from "../../Home/SectionTitle";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import FilesInput from "../../../components/ui/FilesInput";
-import useAxiosPublic from "../../../utils/useAxiosPublic";
 import { useState } from "react";
-import { useCreateRoomMutation } from "../../../redux/features/roomManagement/roomManagementApi";
-import Loader from "../../../components/ui/Loader";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "sonner";
+import FilesInput from "../../../../components/ui/FilesInput";
+import Input from "../../../../components/ui/Input";
+import Loader from "../../../../components/ui/Loader";
+import { useCreateRoomMutation } from "../../../../redux/features/roomManagement/roomManagementApi";
+import useAxiosPublic from "../../../../utils/useAxiosPublic";
+import SectionTitle from "../../../Home/SectionTitle";
 
 const amenitiesOptions = ["Projector", "WhiteBoard", "WiFi", "AC", "Parking"];
 
-const AddRoom = () => {
-  const [ createRoom ] = useCreateRoomMutation();
+const CreateRoom = () => {
+  const [createRoom] = useCreateRoomMutation();
   const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
   const {
     register,
@@ -31,7 +31,7 @@ const AddRoom = () => {
     if (selectedValue && !selectedAmenities.includes(selectedValue)) {
       const newAmenities = [...selectedAmenities, selectedValue];
       setSelectedAmenities(newAmenities);
-      setValue("amenities", newAmenities); 
+      setValue("amenities", newAmenities);
     }
   };
 
@@ -85,12 +85,12 @@ const AddRoom = () => {
         pricePerSlot: Number(data.pricePerSlot),
         amenities: selectedAmenities,
       };
-  
+
       console.log("this is room data: ", roomData);
-  
+
       const result = await createRoom(roomData).unwrap();
       console.log("this is result: ", result);
-      if(result.success){
+      if (result.success) {
         toast.success("Room added successfully", {
           id: toastId,
           duration: 2000,
@@ -99,13 +99,12 @@ const AddRoom = () => {
         reset();
       }
     } catch (err: any) {
-      console.log("error message: ", err)
+      console.log("error message: ", err);
       toast.error(err.data.message, {
         id: toastId,
         duration: 5000,
       });
     }
-
   };
 
   if (isLoading) {
@@ -118,7 +117,10 @@ const AddRoom = () => {
       <div className="hero">
         <div className="hero-content flex-col lg:flex-row-reverse pb-20">
           <div className="card w-[600px] shrink-0 shadow-2xl shadow-primaryFont">
-            <form className="card-body pb-20 bg-base-200" onSubmit={handleSubmit(onSubmit)}>
+            <form
+              className="card-body pb-20 bg-base-200"
+              onSubmit={handleSubmit(onSubmit)}
+            >
               <Input
                 type="text"
                 label="Name"
@@ -127,7 +129,9 @@ const AddRoom = () => {
                 register={register}
                 required={true}
               />
-              {errors.name && <span className="text-red-600">Name is Required</span>}
+              {errors.name && (
+                <span className="text-red-600">Name is Required</span>
+              )}
 
               <FilesInput
                 type="file"
@@ -137,7 +141,9 @@ const AddRoom = () => {
                 required={true}
                 register={register}
               />
-              {errors.image && <span className="text-red-600">Image is Required</span>}
+              {errors.image && (
+                <span className="text-red-600">Image is Required</span>
+              )}
 
               <FilesInput
                 type="file"
@@ -158,7 +164,9 @@ const AddRoom = () => {
                     register={register}
                     required={true}
                   />
-                  {errors.roomNo && <span className="text-red-600">Room No is Required</span>}
+                  {errors.roomNo && (
+                    <span className="text-red-600">Room No is Required</span>
+                  )}
                 </div>
                 <div className="w-1/2">
                   <Input
@@ -169,7 +177,11 @@ const AddRoom = () => {
                     register={register}
                     required={true}
                   />
-                  {errors.floorNo && <span className="text-red-600">Please specify Floor no</span>}
+                  {errors.floorNo && (
+                    <span className="text-red-600">
+                      Please specify Floor no
+                    </span>
+                  )}
                 </div>
               </div>
               <div className="flex gap-5">
@@ -182,7 +194,11 @@ const AddRoom = () => {
                     register={register}
                     required={true}
                   />
-                  {errors.capacity && <span className="text-red-600">Please specify capacity of the room</span>}
+                  {errors.capacity && (
+                    <span className="text-red-600">
+                      Please specify capacity of the room
+                    </span>
+                  )}
                 </div>
                 <div className="w-1/2">
                   <Input
@@ -193,7 +209,11 @@ const AddRoom = () => {
                     register={register}
                     required={true}
                   />
-                  {errors.pricePerSlot && <span className="text-red-600">Price per slot is required</span>}
+                  {errors.pricePerSlot && (
+                    <span className="text-red-600">
+                      Price per slot is required
+                    </span>
+                  )}
                 </div>
               </div>
 
@@ -221,25 +241,35 @@ const AddRoom = () => {
               <select
                 className="select select-bordered border-primaryFont w-full max-w-xs"
                 {...register("amenities", {
-                  validate: () => selectedAmenities.length > 0 || "At least one amenity must be selected",
+                  validate: () =>
+                    selectedAmenities.length > 0 ||
+                    "At least one amenity must be selected",
                 })}
-                onChange={handleAmenitiesChange}                
+                onChange={handleAmenitiesChange}
+                defaultValue="Select amenities"
               >
-                <option value="" disabled>
+                <option disabled>
                   Select amenities
                 </option>
-                {amenitiesOptions.map((option) => (
-                  <option key={option} value={option}>
+                {amenitiesOptions.map((option, index) => (
+                  <option key={index} value={option}>
                     {option}
                   </option>
                 ))}
               </select>
               {errors.amenities && (
-                <span className="text-red-600">{errors.amenities.message as string}</span>
+                <span className="text-red-600">
+                  {errors.amenities.message as string}
+                </span>
               )}
 
               <div className="form-control mt-6">
-                <button type="submit" className=" btn bg-primaryFont rounded text-black hover:bg-secondaryColor font-bold">Add Room</button>
+                <button
+                  type="submit"
+                  className=" btn bg-primaryFont rounded text-black hover:bg-secondaryColor font-bold"
+                >
+                  Add Room
+                </button>
               </div>
             </form>
           </div>
@@ -249,4 +279,4 @@ const AddRoom = () => {
   );
 };
 
-export default AddRoom;
+export default CreateRoom;

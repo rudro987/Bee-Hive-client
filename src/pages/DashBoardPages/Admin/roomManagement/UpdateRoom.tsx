@@ -1,22 +1,29 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { useUpdateRoomMutation } from "../../../redux/features/roomManagement/roomManagementApi";
-import { toast } from "sonner";
 import { useState } from "react";
-import useAxiosPublic from "../../../utils/useAxiosPublic";
-import Input from "../../../components/ui/Input";
-import FilesInput from "../../../components/ui/FilesInput";
-import { TRoomType } from "../../../types";
-import Loader from "../../../components/ui/Loader";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "sonner";
+import FilesInput from "../../../../components/ui/FilesInput";
+import Input from "../../../../components/ui/Input";
+import Loader from "../../../../components/ui/Loader";
+import { useUpdateRoomMutation } from "../../../../redux/features/roomManagement/roomManagementApi";
+import { TRoomType } from "../../../../types";
+import useAxiosPublic from "../../../../utils/useAxiosPublic";
 
 const amenitiesOptions = ["Projector", "WhiteBoard", "WiFi", "AC", "Parking"];
 
 const UpdateRoom = ({ room }: { room: TRoomType }) => {
-  const { register, handleSubmit, formState: { isLoading },  setValue } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { isLoading },
+    setValue,
+  } = useForm();
 
   const axiosPublic = useAxiosPublic();
 
-  const [selectedAmenities, setSelectedAmenities] = useState<string[]>(room.amenities as string[]);
+  const [selectedAmenities, setSelectedAmenities] = useState<string[]>(
+    room.amenities as string[]
+  );
 
   const [updateRoom] = useUpdateRoomMutation();
 
@@ -52,34 +59,34 @@ const UpdateRoom = ({ room }: { room: TRoomType }) => {
 
     const imageFile = { image: data.image[0] };
 
-    if(data.image && data.image.length > 0){
-        const result = await axiosPublic.post(image_api, imageFile, {
+    if (data.image && data.image.length > 0) {
+      const result = await axiosPublic.post(image_api, imageFile, {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      });
+
+      roomImage = result.data.data.display_url;
+    }
+
+    if (galleryData.length > 0) {
+      galleryURLs = await Promise.all(
+        galleryData.map(async (file) => {
+          const formData = new FormData();
+          formData.append("image", file as string);
+          const response = await axiosPublic.post(image_api, formData, {
             headers: {
               "content-type": "multipart/form-data",
             },
           });
-      
-          roomImage = result.data.data.display_url;
-    }
-
-    if(galleryData.length > 0){
-        galleryURLs = await Promise.all(
-            galleryData.map(async (file) => {
-              const formData = new FormData();
-              formData.append("image", file as string);
-              const response = await axiosPublic.post(image_api, formData, {
-                headers: {
-                  "content-type": "multipart/form-data",
-                },
-              });
-              return response.data.data.display_url;
-            })
-          );
+          return response.data.data.display_url;
+        })
+      );
     }
 
     try {
       const id = room._id;
-      const productUpdatedData = {
+      const roomUpdatedData = {
         name: data.name,
         roomNo: Number(data.roomNo),
         image: roomImage,
@@ -90,7 +97,7 @@ const UpdateRoom = ({ room }: { room: TRoomType }) => {
         amenities: selectedAmenities,
       };
 
-      const res = await updateRoom({ productUpdatedData, id }).unwrap();
+      const res = await updateRoom({ roomUpdatedData, id }).unwrap();
 
       if (res.success) {
         toast.success("Room successfully updated!", { duration: 2000 });

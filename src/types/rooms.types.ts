@@ -10,3 +10,8 @@ export type TRoomType = {
     amenities?: [string],
     isDeleted?: false
 }
+
+export type TRoomInfo = {
+    name: string;
+    id: string
+}
