@@ -1,10 +1,30 @@
 import { Link } from "react-router-dom";
 import { menuItemsGenerator } from "../../../utils/menuItemsGenerator";
-import { FaCartArrowDown } from "react-icons/fa";
 import { mainMenu } from "../../../routes/mainMenu";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import {
+  logOut,
+  useCurrentToken,
+} from "../../../redux/features/auth/authSlice";
+import { verifyToken } from "../../../utils/verifyToken";
+import { TUser } from "../../../types";
+import { BiSolidDashboard } from "react-icons/bi";
+import { IoMdLogOut } from "react-icons/io";
 
 const NavItems = () => {
   const menuItems = menuItemsGenerator(mainMenu);
+  const token = useAppSelector(useCurrentToken);
+  const dispatch = useAppDispatch();
+
+  let user;
+
+  if (token) {
+    user = verifyToken(token) as TUser;
+  }
+
+  const handleLogout = () => {
+    dispatch(logOut());
+  };
 
   return (
     <div className="relative">
@@ -71,13 +91,60 @@ const NavItems = () => {
                 ))}
               </ul>
             </div>
-            <div className="navbar-end relative">
-              <div className="w-5 h-5 bg-primaryFont text-[#242424] flex justify-center items-center rounded-full text-xs absolute -top-2 -right-2">
-                0
-              </div>
-              <Link to="/">
-                <FaCartArrowDown className="text-2xl text-secondaryColor" />
-              </Link>
+            <div className="navbar-end">
+              {user ? (
+                <div className="dropdown dropdown-end">
+                  <div
+                    tabIndex={0}
+                    role="button"
+                    className="btn btn-ghost btn-circle avatar"
+                  >
+                    <div className="rounded-full">
+                      <img
+                        alt="Tailwind CSS Navbar component"
+                        src="https://i.ibb.co.com/W6PdY6H/png-transparent-computer-icons-management-admin-silhouette-black-and-white-neck-thumbnail.png"
+                      />
+                    </div>
+                  </div>
+                  <ul
+                    tabIndex={0}
+                    className="menu menu-sm dropdown-content text-black bg-primaryFont font-bold space-y-3 rounded z-[1] mt-1 -mr-20 w-44 shadow py-5"
+                  >
+                    {user.role === "admin" ? (
+                      <li>
+                        <Link to="/admin/dashboard">
+                          <BiSolidDashboard size={20} />
+                          Dashboard
+                        </Link>
+                      </li>
+                    ) : (
+                      <li>
+                        <Link to="/user/dashboard">
+                          <BiSolidDashboard size={20} />
+                          My Bookings
+                        </Link>
+                      </li>
+                    )}
+                    <li>
+                      <button onClick={handleLogout}>
+                        <IoMdLogOut size={20} />
+                        Logout
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              ) : (
+                <div className="flex gap-5">
+                  <Link to="/login">
+                    <h1 className="text-base hover:text-primaryFont">Login</h1>
+                  </Link>
+                  <Link to="/">
+                    <h1 className="text-base hover:text-primaryFont">
+                      Register
+                    </h1>
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
         </div>

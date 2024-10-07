@@ -3,7 +3,7 @@ import ContactUs from "../pages/ContactUs/ContactUs";
 import Home from "../pages/Home/Home";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
-import Rooms from "../pages/Rooms/Rooms";
+import MeetingRooms from "../pages/MeetingRooms/MeetingRooms";
 
 export const mainMenu = [
     {
@@ -12,9 +12,9 @@ export const mainMenu = [
         element: <Home />
     },
     {
-        name: 'Rooms',
-        path: '/rooms',
-        element: <Rooms />
+        name: 'Meeting Rooms',
+        path: '/meeting-rooms',
+        element: <MeetingRooms />
     },
     {
         name: 'Single Room',

@@ -8,6 +8,7 @@ import { verifyToken } from "../../utils/verifyToken";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { TLoginInputs } from "../../types";
+import Loader from "../../components/ui/Loader";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -41,8 +42,8 @@ const Login = () => {
     }
   };
 
-  if(isLoading){
-    return <div>Loading...</div>
+  if (isLoading) {
+    return <Loader size="160px" />;
   }
 
   return (

@@ -21,7 +21,7 @@ const CreateSlot = () => {
 
   const [startTime, setStartTime] = useState<string | null>(null); 
 
-  const [ createSlot ] = useCreateSlotMutation();
+  const [ createSlot, { isLoading } ] = useCreateSlotMutation();
 
   const { data: rooms } = useGetRoomsQuery(undefined);
 
@@ -39,7 +39,7 @@ const CreateSlot = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isLoading },
+    formState: { errors },
     reset,
     control,
   } = useForm();

@@ -22,7 +22,7 @@ const DashboardSidebar = () => {
 
   if ((user as TUser)?.role === "admin") {
     sidebarItems = menuItemsGenerator(adminPaths);
-  } else if((user as TUser)?.role === "student") {
+  } else if((user as TUser)?.role === "user") {
     sidebarItems = menuItemsGenerator(userPaths);
   }else{
     dispatch(logOut());
@@ -60,13 +60,13 @@ const DashboardSidebar = () => {
             <div className="rounded-full">
               <img
                 alt="Tailwind CSS Navbar component"
-                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                src="https://i.ibb.co.com/W6PdY6H/png-transparent-computer-icons-management-admin-silhouette-black-and-white-neck-thumbnail.png"
               />
             </div>
           </div>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-1 -mr-40 w-52 p-2 shadow"
+            className="menu menu-sm dropdown-content bg-primaryFont hover:bg-secondaryColor text-black font-bold rounded z-[1] mt-1 -mr-20 w-32 p-2 shadow"
           >
             <li>
               <button onClick={handleLogout}>Logout</button>

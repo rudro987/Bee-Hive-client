@@ -15,7 +15,6 @@ const UpdateRoom = ({ room }: { room: TRoomType }) => {
   const {
     register,
     handleSubmit,
-    formState: { isLoading },
     setValue,
   } = useForm();
 
@@ -25,7 +24,7 @@ const UpdateRoom = ({ room }: { room: TRoomType }) => {
     room.amenities as string[]
   );
 
-  const [updateRoom] = useUpdateRoomMutation();
+  const [updateRoom, {isLoading}] = useUpdateRoomMutation();
 
   const handleAmenitiesChange = (
     event: React.ChangeEvent<HTMLSelectElement>

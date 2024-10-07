@@ -15,7 +15,7 @@ const RoomManagement = () => {
   const { data, isLoading } = useGetRoomsQuery(undefined);
   const roomData = data?.data;
 
-  const [deleteRoom] = useDeleteRoomMutation();
+  const [deleteRoom, { isLoading: deleteLoading }] = useDeleteRoomMutation();
 
   const handleDelete = (id: string) => {
     Swal.fire({
@@ -46,7 +46,7 @@ const RoomManagement = () => {
     });
   };
 
-  if (isLoading) {
+  if (isLoading || deleteLoading) {
     return <Loader size="160px" />;
   }
 

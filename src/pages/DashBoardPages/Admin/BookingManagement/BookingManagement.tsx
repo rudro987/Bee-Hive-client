@@ -14,9 +14,9 @@ import { GiCancel, GiConfirmed } from "react-icons/gi";
 const BookingManagement = () => {
   const { data, isLoading } = useGetAllBookingsQuery(undefined);
 
-  const [deleteSlot] = useDeleteBookingMutation();
+  const [deleteSlot, { isLoading: deleteLoading}] = useDeleteBookingMutation();
 
-  const [updateBooking] = useUpdateBookingMutation();
+  const [updateBooking, { isLoading: updateLoading }] = useUpdateBookingMutation();
 
   const allBookingsData = data?.data;
 
@@ -66,7 +66,7 @@ const BookingManagement = () => {
     });
   };
 
-  if (isLoading) {
+  if (isLoading || deleteLoading || updateLoading) {
     return <Loader size="160px" />;
   }
 

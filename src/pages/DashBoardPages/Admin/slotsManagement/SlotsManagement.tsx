@@ -11,7 +11,7 @@ const SlotsManagement = () => {
 
   const { data, isLoading } = useGetSlotsQuery(undefined);
 
-  const [deleteSlot] = useDeleteSlotMutation();
+  const [deleteSlot, { isLoading: deleteLoading }] = useDeleteSlotMutation();
 
   const slotsData = data?.data;
 
@@ -45,7 +45,7 @@ const SlotsManagement = () => {
     });
   };
 
-  if (isLoading) {
+  if (isLoading || deleteLoading) {
     return <Loader size="160px" />;
   }
 

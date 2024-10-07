@@ -12,12 +12,12 @@ import SectionTitle from "../../../Home/SectionTitle";
 const amenitiesOptions = ["Projector", "WhiteBoard", "WiFi", "AC", "Parking"];
 
 const CreateRoom = () => {
-  const [createRoom] = useCreateRoomMutation();
+  const [createRoom, { isLoading }] = useCreateRoomMutation();
   const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
   const {
     register,
     handleSubmit,
-    formState: { errors, isLoading },
+    formState: { errors },
     reset,
     setValue,
   } = useForm();

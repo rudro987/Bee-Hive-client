@@ -11,3 +11,10 @@ export type TUserTypes = {
     phone: string;
     address: string;
 }
+
+export type TUser = {
+  userEmail: string;
+  role: string;
+  iat: number;
+  exp: number
+}
