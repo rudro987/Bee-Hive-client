@@ -15,14 +15,14 @@ const bookingsManagementApi = baseApi.injectEndpoints({
                 method: 'PUT',
                 body: bookingsUpdatedData,
             }),
-            invalidatesTags: ['bookings'],
+            invalidatesTags: ['bookings', 'userBookings'],
         }),
         deleteBooking: builder.mutation({
             query: (id) => ({
                 url: `/bookings/${id}`,
                 method: 'DELETE',
             }),
-            invalidatesTags: ['bookings'],
+            invalidatesTags: ['bookings', 'userBookings'],
         }),
     }),
 });

@@ -1,9 +1,60 @@
+import Loader from "../../../components/ui/Loader";
+import { useGetUserBookingsQuery } from "../../../redux/features/userBookings/userBookingsApi";
+import SectionTitle from "../../Home/SectionTitle";
+
 const MyBookings = () => {
+  const { data, isLoading } = useGetUserBookingsQuery(undefined);
+  const bookingsData = data?.data;
+
+  console.log(bookingsData)
+
+
+  if (isLoading) {
+    return <Loader size="160px" />;
+  }
+
+
   return (
-    <div>
-      <h1>This is MyBookings Component</h1>
+    <div className="pt-20">
+      <SectionTitle title="All Bookings List" />
+      <div className="overflow-x-auto">
+        <table className="table text-center">
+          <thead>
+            <tr className="text-base">
+              <th>
+                <label>#</label>
+              </th>
+              <th>Room Name</th>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {bookingsData?.map((booking, index: number) => (
+              <tr key={index}>
+                <th>
+                  <label>{index + 1}</label>
+                </th>
+                <td>{booking.room.name}</td>
+                <td>{booking.date}</td>
+                <td>
+                  {booking.slots.map((slots) => (
+                    <p key={slots._id}>
+                      {slots.startTime} - {slots.endTime}
+                    </p>
+                  ))}
+                </td>
+                <td>
+                  <span className="uppercase">{booking.isConfirmed}</span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
-  )
+  );
 };
 
 export default MyBookings;
