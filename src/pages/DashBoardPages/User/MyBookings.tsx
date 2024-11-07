@@ -1,13 +1,12 @@
 import Loader from "../../../components/ui/Loader";
 import { useGetUserBookingsQuery } from "../../../redux/features/userBookings/userBookingsApi";
+import { TUserBookingType } from "../../../types";
 import SectionTitle from "../../Home/SectionTitle";
 
 const MyBookings = () => {
+  
   const { data, isLoading } = useGetUserBookingsQuery(undefined);
   const bookingsData = data?.data;
-
-  console.log(bookingsData)
-
 
   if (isLoading) {
     return <Loader size="160px" />;
@@ -16,7 +15,7 @@ const MyBookings = () => {
 
   return (
     <div className="pt-20">
-      <SectionTitle title="All Bookings List" />
+      <SectionTitle title="My Bookings" />
       <div className="overflow-x-auto">
         <table className="table text-center">
           <thead>
@@ -31,7 +30,7 @@ const MyBookings = () => {
             </tr>
           </thead>
           <tbody>
-            {bookingsData?.map((booking, index: number) => (
+            {bookingsData?.map((booking: TUserBookingType, index: number) => (
               <tr key={index}>
                 <th>
                   <label>{index + 1}</label>

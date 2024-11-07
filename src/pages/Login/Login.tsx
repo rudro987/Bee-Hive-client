@@ -5,13 +5,15 @@ import { useLoginMutation } from "../../redux/features/auth/authApi";
 import { useAppDispatch } from "../../redux/hooks";
 import { setUser, TUser } from "../../redux/features/auth/authSlice";
 import { verifyToken } from "../../utils/verifyToken";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { TLoginInputs } from "../../types";
 import Loader from "../../components/ui/Loader";
 
 const Login = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   const dispatch = useAppDispatch();
 
@@ -36,7 +38,7 @@ const Login = () => {
 
       dispatch(setUser({ user: user, token: res.token }));
       toast.success("Logged in", { id: toastId, duration: 2000 });
-      navigate(`/${user.role}/dashboard`);
+      navigate(from, { replace: true });
     } catch (error) {
       toast.error("Something went wrong", { id: toastId, duration: 2000 });
     }

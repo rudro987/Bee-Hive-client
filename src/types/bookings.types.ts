@@ -3,12 +3,22 @@ import { TSlotType } from "./slots.types";
 import { TUserTypes } from "./user.types";
 
 export type TBookingsType = {
-    _id: string;
-    room: TRoomType;
-    slots: TSlotType[];
-    user: TUserTypes;
-    date: string;
-    isConfirmed: "confirmed" | "unconfirmed" 
-    isDeleted?: boolean;
-    totalAmount?: number;
-}
+  _id: string;
+  room: TRoomType;
+  slots: TSlotType[];
+  user: TUserTypes;
+  date: string;
+  isConfirmed: "confirmed" | "unconfirmed";
+  isDeleted?: boolean;
+  totalAmount?: number;
+};
+
+export type TUserBookingType = {
+  _id: string;
+  room: TRoomType;
+  slots: TSlotType[];
+  date: string;
+  isConfirmed: "confirmed" | "unconfirmed";
+  isDeleted: boolean;
+  totalAmount?: number;
+};
