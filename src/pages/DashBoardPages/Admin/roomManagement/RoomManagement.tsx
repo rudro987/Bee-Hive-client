@@ -2,7 +2,6 @@ import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import Swal from "sweetalert2";
-import Loader from "../../../../components/ui/Loader";
 import {
   useDeleteRoomMutation,
   useGetRoomsQuery,
@@ -10,6 +9,8 @@ import {
 import { TRoomType } from "../../../../types";
 import SectionTitle from "../../../Home/SectionTitle";
 import UpdateRoom from "./UpdateRoom";
+import Loader from "../../../../components/ui/Loader";
+
 
 const RoomManagement = () => {
   const { data, isLoading } = useGetRoomsQuery(undefined);

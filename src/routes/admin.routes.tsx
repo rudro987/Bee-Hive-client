@@ -1,4 +1,5 @@
 import AdminDashboard from "../pages/DashBoardPages/Admin/AdminDashboard";
+import AllUsers from "../pages/DashBoardPages/Admin/AllUsers/AllUsers";
 import BookingManagement from "../pages/DashBoardPages/Admin/BookingManagement/BookingManagement";
 import CreateRoom from "../pages/DashBoardPages/Admin/roomManagement/CreateRoom";
 
@@ -36,5 +37,10 @@ export const adminPaths = [
     name: "Create Slot",
     path: "create-slot",
     element: <CreateSlot />,
+  },
+  {
+    name: "All Users",
+    path: "all-users",
+    element: <AllUsers />,
   },
 ];
