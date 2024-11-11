@@ -1,12 +1,12 @@
 import { TRoomType } from "./rooms.types";
 import { TSlotType } from "./slots.types";
-import { TUserTypes } from "./user.types";
+import { IUserTypes } from "./user.types";
 
 export type TBookingsType = {
   _id: string;
   room: TRoomType;
   slots: TSlotType[];
-  user: TUserTypes;
+  user: IUserTypes;
   date: string;
   isConfirmed: "confirmed" | "unconfirmed";
   isDeleted?: boolean;

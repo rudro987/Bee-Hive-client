@@ -3,7 +3,7 @@
 import { toast } from "sonner";
 import Loader from "../../../../components/ui/Loader";
 import { useGetallUsersQuery, useUpdateUserRoleMutation } from "../../../../redux/features/users/allUsersApi";
-import { TUserTypes } from "../../../../types";
+import { IUserTypes } from "../../../../types";
 import SectionTitle from "../../../Home/SectionTitle";
 
 const AllUsers = () => {
@@ -68,7 +68,7 @@ const AllUsers = () => {
             </tr>
           </thead>
           <tbody>
-            {userData?.map((user: TUserTypes, index: number) => (
+            {userData?.map((user: IUserTypes, index: number) => (
               <tr key={index}>
                 <th>
                   <label>{index + 1}</label>

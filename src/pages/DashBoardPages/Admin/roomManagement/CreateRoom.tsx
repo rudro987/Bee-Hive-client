@@ -115,7 +115,7 @@ const CreateRoom = () => {
         <div className="hero-content flex-col lg:flex-row-reverse pb-20">
           <div className="card w-[600px] shrink-0 shadow-2xl shadow-primaryFont">
             <form
-              className="card-body pb-20 bg-base-200"
+              className="card-body pb-20 bg-base-200 rounded-2xl"
               onSubmit={handleSubmit(onSubmit)}
             >
               <Input

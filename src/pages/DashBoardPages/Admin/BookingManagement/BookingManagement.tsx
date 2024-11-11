@@ -76,7 +76,7 @@ const BookingManagement = () => {
       <div className="overflow-x-auto">
         <table className="table text-center">
           <thead>
-            <tr className="text-base">
+            <tr className="text-base uppercase">
               <th>
                 <label>#</label>
               </th>

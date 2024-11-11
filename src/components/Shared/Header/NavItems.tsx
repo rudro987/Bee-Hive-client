@@ -138,7 +138,7 @@ const NavItems = () => {
                   <Link to="/login">
                     <h1 className="text-base hover:text-primaryFont">Login</h1>
                   </Link>
-                  <Link to="/">
+                  <Link to="/register">
                     <h1 className="text-base hover:text-primaryFont">
                       Register
                     </h1>

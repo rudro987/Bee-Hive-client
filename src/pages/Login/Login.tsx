@@ -5,10 +5,10 @@ import { useLoginMutation } from "../../redux/features/auth/authApi";
 import { useAppDispatch } from "../../redux/hooks";
 import { setUser, TUser } from "../../redux/features/auth/authSlice";
 import { verifyToken } from "../../utils/verifyToken";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { TLoginInputs } from "../../types";
 import Loader from "../../components/ui/Loader";
+import { TLoginInputs } from "../../types";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -21,7 +21,13 @@ const Login = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<TLoginInputs>();
+  } = useForm<TLoginInputs>({
+    mode: "onSubmit",
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
 
   const [login, { isLoading }] = useLoginMutation();
 
@@ -53,17 +59,18 @@ const Login = () => {
       <SectionTitle title="Login" />
       <div className="hero">
         <div className="hero-content flex-col lg:flex-row-reverse">
-          <div className="card bg-[#242424] w-[600px] shrink-0 shadow-2xl">
-            <form className="card-body pb-10" onSubmit={handleSubmit(onSubmit)}>
+          <div className="card bg-base-200 w-[600px] shrink-0 shadow-2xl shadow-primaryFont pb-10">
+            <form className="card-body" onSubmit={handleSubmit(onSubmit)}>
               <Input
                 type="text"
                 label="Email"
                 placeholder="Your Email Address"
                 name="email"
                 register={register}
+                required={true}
               />
               {errors.email && (
-                <span className="text-red-700">Email is required</span>
+                <span className="text-red-500">Email is required</span>
               )}
 
               <Input
@@ -72,9 +79,10 @@ const Login = () => {
                 placeholder="Type Password"
                 name="password"
                 register={register}
+                required={true}
               />
               {errors.password && (
-                <span className="text-red-700">Password is required</span>
+                <span className="text-red-500">Password is required</span>
               )}
 
               <div className="form-control mt-6">
@@ -83,6 +91,17 @@ const Login = () => {
                 </button>
               </div>
             </form>
+            <div className="text-center">
+              <p>
+                Do not have an account? Please{" "}
+                <Link
+                  to="/register"
+                  className="text-secondaryColor font-bold underline"
+                >
+                  Sign Up
+                </Link>
+              </p>
+            </div>
           </div>
         </div>
       </div>
