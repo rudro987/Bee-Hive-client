@@ -35,10 +35,11 @@ body{
 .Testimonials__main-container{
     margin: 0 auto;
     max-width: 1280px;
+    box-shadow: 0 8px 24px #71ECB6 !important;
 }
 
 .TestimonialsTop{
-    border-bottom: .2px solid #71ECB6;
+    border-bottom: .2px solid #BAFE6D !important;
 }
 
  .TestimonialsBottom__box>*{

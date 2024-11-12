@@ -62,7 +62,7 @@ const RoomManagement = () => {
             </button>
           </Link>
         </div>
-        <table className="table text-center">
+        <table className="table text-center mb-20">
           <thead>
             <tr className="text-base uppercase">
               <th>
@@ -99,7 +99,8 @@ const RoomManagement = () => {
                 <td>{room.floorNo}</td>
                 <td>{room.capacity}</td>
                 <td>${room.pricePerSlot.toFixed(2)}</td>
-                <td className="flex gap-3">
+                <td className="">
+                  <div className="flex items-center gap-3">
                   <button
                     onClick={() =>
                       (
@@ -136,6 +137,7 @@ const RoomManagement = () => {
                       className="text-primaryFont hover:text-secondaryColor"
                     />
                   </button>
+                  </div>
                 </td>
               </tr>
             ))}

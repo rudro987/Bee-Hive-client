@@ -1,8 +1,9 @@
 import { ReactNode } from "react";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { logOut, TUser, useCurrentToken } from "../redux/features/auth/authSlice";
+import { logOut, useCurrentToken } from "../redux/features/auth/authSlice";
 import { Navigate } from "react-router-dom";
 import { verifyToken } from "../utils/verifyToken";
+import { TUser } from "../types";
 
 type TProtectedRoute = {
   children: ReactNode,

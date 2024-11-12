@@ -1,12 +1,26 @@
+import Loader from "../../components/ui/Loader";
+import { useGetRoomsQuery } from "../../redux/features/roomManagement/roomManagementApi";
+import { TRoomType } from "../../types";
 import FeaturedCard from "./FeaturedCard";
 import SectionTitle from "./SectionTitle";
 
 const Featured = () => {
+  const { data, isLoading } = useGetRoomsQuery(undefined);
+  const roomsData = data?.data;
+
+  if (isLoading) {
+    return <Loader size="160px" />;
+  }
+
   return (
     <div className="pb-40 max-w-7xl mx-auto">
-    <SectionTitle title='Featured Products' />
+      <SectionTitle title="Featured Products" />
       <div className="grid grid-cols-3 gap-5">
-        <FeaturedCard />
+        {
+          roomsData?.map((room: TRoomType) => (
+            <FeaturedCard key={room._id} room={room} />
+          ))
+        }
       </div>
     </div>
   );

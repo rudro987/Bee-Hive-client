@@ -3,12 +3,12 @@ import SectionTitle from "../Home/SectionTitle";
 import Input from "../../components/ui/Input";
 import { useLoginMutation } from "../../redux/features/auth/authApi";
 import { useAppDispatch } from "../../redux/hooks";
-import { setUser, TUser } from "../../redux/features/auth/authSlice";
+import { setUser } from "../../redux/features/auth/authSlice";
 import { verifyToken } from "../../utils/verifyToken";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import Loader from "../../components/ui/Loader";
-import { TLoginInputs } from "../../types";
+import { TLoginInputs, TUser } from "../../types";
 
 const Login = () => {
   const navigate = useNavigate();
