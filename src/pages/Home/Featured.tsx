@@ -5,8 +5,11 @@ import FeaturedCard from "./FeaturedCard";
 import SectionTitle from "./SectionTitle";
 
 const Featured = () => {
-  const { data, isLoading } = useGetRoomsQuery(undefined);
+  const query = { limit: 6 };
+  const { data, isLoading } = useGetRoomsQuery(query);
   const roomsData = data?.data;
+
+  console.log(data);
 
   if (isLoading) {
     return <Loader size="160px" />;

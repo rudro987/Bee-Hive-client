@@ -1,10 +1,11 @@
 import { baseApi } from "../../api/baseApi";
+import qs from 'qs';
 
 const roomManagementApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
         getRooms: builder.query({
-            query: () => ({
-                url: '/rooms',
+            query: (query) => ({
+                url: `/rooms?${qs.stringify(query, { skipNulls: true })}`,
                 method: 'GET',
             }),
             providesTags: ['rooms'],
